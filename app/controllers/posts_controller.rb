@@ -24,6 +24,18 @@ class PostsController < ApplicationController
   def update 
     @post = Post.find_by(id: params[:id])
     @post.content = params[:content]
+    if @post.save
+      @post.save
+      redirect_to("/posts/index")
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find_by(id: params[:id])
+    @post.destroy
+
     redirect_to("/posts/index")
   end
 end
