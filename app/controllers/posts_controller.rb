@@ -25,8 +25,8 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @post.content = params[:content]
     if @post.save
-      @post.save
-      redirect_to("/posts/index")
+      flash[:notice] = "投稿を編集しました"
+      redirect_to ("/posts/index")
     else
       render :edit, status: :unprocessable_entity
     end
