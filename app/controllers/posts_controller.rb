@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(content: params[:content])
     if @post.save
+      flash[:notice] = "投稿を作成しました"
     redirect_to("/posts/index")
     else
       render :new, status: :unprocessable_entity
@@ -38,8 +39,9 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find_by(id: params[:id])
-    @post.destroy
-
-    redirect_to("/posts/index")
+    if @post.destroy
+      flash[:notice] = "投稿を削除しました"
+      redirect_to("/posts/index")
+    end
   end
 end
